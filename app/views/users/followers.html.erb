@@ -6,21 +6,19 @@
         <!--メモ　右側の指定に注意。そこを間違えるとエラーが発生して表示されない -->
 
         <h2>New book</h2>
-        <%= render 'books/newform', book: @book %>
+        <%= render 'books/newform', book: Book.new %>
 
     </div>
 
     <div class="col-xs-9">
-        <h2>Users</h2>
-        <!--users一覧 -->
+        <h2>Followers</h2>
+        <!--フォローされているユーザ一覧 -->
         <table class="table">
         	<thead>
         		<tr>
         			<th>image</th>
         			<th>name</th>
-                    <th>following</th>
-                    <th>followers</th>
-        			<th colspan="2"></th>
+        			<th colspan="1"></th>
         		</tr>
         	</thead>
 
@@ -29,14 +27,11 @@
         		<tr>
         			<td><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg") %></td>
         			<td><%= user.name%></td>
-                    <td>×<%= user.following.count %></td>
-                    <td>×<%= user.followers.count %></td>
-                    <td><%= render partial: 'users/follow_form', locals: { user: user } %></td>
         			<td><%= link_to "Show", user, class: "user_#{user.id}" %></td>
         		</tr>
         		<% end %>
         	</tbody>
         </table>
-        <!--users一覧 -->
+        <!--フォローされているユーザ一覧 -->
     </div>
 </div>

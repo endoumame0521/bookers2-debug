@@ -10,8 +10,20 @@
 			<th>introduction</th>
 			<th><%= user.introduction %></th>
 		</tr>
+
+		<tr>
+			<th>following</th>
+			<th><%= link_to user.following.count, following_user_path(user) %></th>
+		</tr>
+
+		<tr>
+			<th>followers</th>
+			<th><%= link_to user.followers.count, followers_user_path(user) %></th>
+		</tr>
 </table>
 
-<div class="row">
+<%= render partial: 'users/follow_form', locals: { user: user } %>
+
+<div class="row" style="margin-top: 10%;">
 	<%= link_to '',edit_user_path(current_user.id), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench edit_user_#{user.id}" %>
 </div>

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 	before_action :baria_user, only: [:edit, :update]
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: [:show, :edit, :update, :following, :followers]
 
   def show
   	@books = @user.books
@@ -22,6 +22,13 @@ class UsersController < ApplicationController
   	end
   end
 
+  def following
+    @users = @user.following
+  end
+
+  def followers
+    @users = @user.followers
+  end
 
   private
   def set_user
