@@ -3,6 +3,7 @@ class BooksController < ApplicationController
   before_action :baria_book, only: [:edit, :update]
 
   def show
+    @book_comment = BookComment.new
   end
 
   def index
