@@ -13,53 +13,21 @@
 		<h2>Book detail</h2>
 
 		<table class="table">
-			<tr>
-				<td>
-					<%= link_to (@book.user) do %>
-					<%= attachment_image_tag(@book.user, :profile_image, :fill, 100, 100, fallback: "no-image-mini.jpg") %><br>
-					<%= @book.user.name %>
-					<% end %>
-				</td>
-				<td><%= link_to @book.title, @book %></td>
-				<td><%= @book.body %></td>
-				<td>
-					<% if @book.favorited_by?(current_user) %>
-						<%= link_to book_favorites_path(@book), method: :delete do %>
-							<i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>
-						<% end %>
-						×<%= @book.favorites.count %>
-					<% else %>
-						<%= link_to book_favorites_path(@book), method: :post do %>
-							<i class="fa fa-heart-o" aria-hidden="true"></i>
-						<% end %>
-						×<%= @book.favorites.count %>
-					<% end %>
-				</td>
-				<td><i class="fa fa-comment"></i>x<%= @book.book_comments.count %></td>
-				<% if @book.user_id == current_user.id %>
-					<td>
-						<%= link_to "Edit", edit_book_path(@book), class: "btn-sm btn-success edit_book_#{@book.id}" %>
-					</td>
-					<td>
-						<%= link_to "Destroy", @book, method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger destroy_book_#{@book.id}" %>
-					</td>
-				<% end %>
+			<tr id="book-<%= @book.id %>">
+				<%= render 'books/book_record', book: @book %>
 			</tr>
 		</table>
 
-		<%= render 'book_comments/book_comments_table', model: @book %>
+		<div id="book-comments-table">
+			<%= render 'book_comments/book_comments_table', book: @book %>
+		</div>
 
-		<%= render 'layouts/error_message', model: @book_comment %>
+		<div id="error-message">
+			<%= render 'layouts/error_message', model: @book_comment %>
+		</div>
 
 		<h4>New comment</h4>
-          <%= form_for [@book, @book_comment] do |f| %>
-              <div class="row">
-                  <div class="col-sm-12">
-                      <%= f.text_area :comment, rows:'5', class: "form-control", placeholder: "Input a comment..." %>
-                  </div>
-              </div>
-              <%= f.submit "submit", class: "btn btn-primary pull-right" %>
-          <% end %>
+		<%= render 'book_comments/new_book_comment', { book: @book, book_comment: @book_comment } %>
 
 	</div>
 </div>
