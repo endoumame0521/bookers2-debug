@@ -7,7 +7,7 @@ class BooksController < ApplicationController
   end
 
   def index
-  	@books = Book.all #一覧表示するためにBookモデルの情報を全てくださいのall
+  	@books = Book.search(book_search_params)
     @book = Book.new
   end
 
@@ -17,7 +17,7 @@ class BooksController < ApplicationController
   	if @book.save #入力されたデータをdbに保存する。
   		redirect_to @book, notice: "successfully created book!"#保存された場合の移動先を指定。
   	else
-  		@books = Book.all
+  		@books = Book.includes(:user)
   		render 'index'
   	end
   end
@@ -45,6 +45,10 @@ class BooksController < ApplicationController
 
   def book_params
   	params.require(:book).permit(:title, :body)
+  end
+
+  def book_search_params
+    params.fetch(:search, {}).permit(:method, :word)
   end
 
   #url直接防止　メソッドを自己定義してbefore_actionで発動。

@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   end
 
   def index
-  	@users = User.all #一覧表示するためにUserモデルのデータを全て変数に入れて取り出す。
+    @users = User.search(user_search_params)
   	@book = Book.new #new bookの新規投稿で必要（保存処理はbookコントローラー側で実施）
   end
 
@@ -37,6 +37,10 @@ class UsersController < ApplicationController
 
   def user_params
   	params.require(:user).permit(:name, :introduction, :profile_image)
+  end
+
+  def user_search_params
+    params.fetch(:search, {}).permit(:method, :word)
   end
 
   #url直接防止　メソッドを自己定義してbefore_actionで発動。

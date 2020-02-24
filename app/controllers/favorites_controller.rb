@@ -4,21 +4,13 @@ class FavoritesController < ApplicationController
 		favorite.user_id = current_user.id
 		favorite.book_id = params[:book_id]
 		favorite.save
-		redirect
+		redirect_to request.referrer
 	end
 
 	def destroy
 		favorite = current_user.favorites.find_by(book_id: params[:book_id])
 		favorite.destroy
-		redirect
+		redirect_to request.referrer
 	end
 
-	def redirect
-		case params[:redirect_id].to_i
-		when 0
-			redirect_to books_path
-		when 1
-			redirect_to book_path(params[:book_id])
-		end
-	end
 end

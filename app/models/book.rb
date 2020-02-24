@@ -8,7 +8,20 @@ class Book < ApplicationRecord
 	validates :body, presence: true, length: {maximum: 200}
 
 	def favorited_by?(user)
-	  favorites.where(user_id: user.id).exists?
+		favorites.where(user_id: user.id).exists?
 	end
 
+	def self.search(search_params)
+		if search_params[:method] == "forward_match"
+			where("title LIKE?", "#{search_params[:word]}%")
+		elsif search_params[:method] == "backward_match"
+			where("title LIKE?", "%#{search_params[:word]}")
+		elsif search_params[:method] == "perfect_match"
+			where(title: "#{search_params[:word]}")
+		elsif search_params[:method] == "partial_match"
+			where("title LIKE?", "%#{search_params[:word]}%")
+		else
+			all
+		end
+	end
 end

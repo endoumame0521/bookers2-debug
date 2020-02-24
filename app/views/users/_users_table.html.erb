@@ -1,0 +1,26 @@
+<!--users一覧 -->
+<table class="table">
+	<thead>
+		<tr>
+			<th>image</th>
+			<th>name</th>
+            <th>following</th>
+            <th>followers</th>
+			<th colspan="2"></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% users.each do |user| %>
+		<tr>
+			<td><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg") %></td>
+			<td><%= user.name%></td>
+            <td>×<%= user.following.count %></td>
+            <td>×<%= user.followers.count %></td>
+            <td><%= render partial: 'users/follow_form', locals: { user: user } %></td>
+			<td><%= link_to "Show", user, class: "user_#{user.id}" %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+<!--users一覧 -->

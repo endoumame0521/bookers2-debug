@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+
     <title>Bookers2</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -8,6 +9,17 @@
     <script src="https://kit.fontawesome.com/6bb1565f31.js" crossorigin="anonymous"></script>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <script>
+    function targetAction(obj)
+    {
+      var idx = obj.selectedIndex;
+      var value = obj.options[idx].value;
+      var formName = document.getElementById("searchForm");
+      formName.action = value;
+    }
+    </script>
+
   </head>
 
   <body>
@@ -18,8 +30,8 @@
         <nav class="nav navbar-nav navbar-left">
           <span>Bookers</span>
         </nav>
-        <nav>
-          <ul class="nav navbar-nav navbar-right">
+        <nav class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav">
             <!--if文でサインインとアウト時の表示を変更-->
             <% if user_signed_in? %>
             <li><%= link_to ' Home', user_path(current_user), class: 'glyphicon glyphicon-home home' %></li>
@@ -33,6 +45,15 @@
             <li><%= link_to ' login', new_user_session_path, class: 'glyphicon glyphicon-log-in sign_in' %></li>
             <% end %>
           </ul>
+
+          <% if user_signed_in? %>
+              <%= form_with(scope: :search, method: :get, local: true, id: "searchForm", class: "navbar-form navbar-left") do |f| %>
+                <%= f.select :target, [["Users", "#{users_path}"], ["Books", "#{books_path}"]], {}, onchange: "targetAction(this);", class: "form-control input-sm" %>
+                <%= f.select :method, [["前方一致", "forward_match"], ["後方一致", "backward_match"], ["完全一致", "perfect_match"], ["部分一致", "partial_match"]], {}, class: "form-control input-sm" %>
+                <%= f.text_field :word, placeholder: "input...", class: "form-control input-sm" %>
+                <%= f.submit "Search", class: "btn btn-sm btn-success my-2 my-sm-0" %>
+              <% end %>
+          <% end %>
         </nav>
 
       </div>
