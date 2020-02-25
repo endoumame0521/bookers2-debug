@@ -1,26 +1,56 @@
-<h2>User info</h2>
+<div class="row">
+	<div class="col-xs-3">
 
-<%= form_for(@user) do |f| %>
+		<h2>User info</h2>
 
-<%= render 'layouts/error_message', model: @user %>
+		<%= form_for(@user) do |f| %>
+			<%= render 'layouts/error_message', model: @user %>
 
-<div class="field">
-	<%= f.label :name %>
-	<%= f.text_field :name, class: "name" %>
+			<div class="field">
+				<%= f.label :name %><br />
+				<%= f.text_field :name, autofocus: true, class: "name" %>
+			</div>
+
+			<div class="field">
+				<%= f.label :image %><br />
+				<%= f.attachment_field :profile_image, class: "user_image" %>
+			</div>
+
+			<div class="field">
+				<%= f.label :introduction %><br />
+				<%= f.text_area :introduction, class: "introduction" %>
+			</div>
+
+			<div class="field">
+				<%= f.label :postcode %><br />
+				<%= f.text_field :postcode, class: "postcode" %>
+			</div>
+
+			<div class="field">
+				<%= f.label :prefecture_code %><br />
+				<%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, { include_blank: '都道府県'} %><br>
+			</div>
+
+			<div class="field">
+				<%= f.label :address_city %><br />
+				<%= f.text_field :address_city, class: "address_city" %>
+			</div>
+
+			<div class="field">
+				<%= f.label :address_street %><br />
+				<%= f.text_field :address_street, class: "address_street" %>
+			</div>
+
+			<div class="actions">
+				<%= f.submit %>
+			</div>
+		<% end %>
+	</div>
+
+	<div class="col-xs-9">
+
+		<h2>User address map</h2>
+		<%= render 'users/map.html.erb', user: @user %>
+
+	</div>
 </div>
-
-<div class="field">
-	<%= f.label :image %>
-	<%= f.attachment_field :profile_image, class: "user_image" %>
-</div>
-
-<div class="field">
-	<%= f.label :introduction %>
-	<%= f.text_area :introduction, class: "introduction" %>
-</div>
-
-<div class="actions">
-	<%= f.submit %>
-</div>
-
-<% end %>

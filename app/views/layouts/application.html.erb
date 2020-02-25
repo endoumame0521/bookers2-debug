@@ -10,23 +10,37 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <script>
-    function targetAction(obj)
-    {
-      var idx = obj.selectedIndex;
-      var value = obj.options[idx].value;
-      var formName = document.getElementById("searchForm");
-      formName.action = value;
-    }
-    </script>
+    <% if user_signed_in? %>
+      <script>
+      function targetAction()
+      {
+        var formName = document.getElementById("searchForm");
+        // console.log(formName);
+        var obj = document.getElementById('targetSelect');
+        // console.log(obj);
+        var idx = obj.selectedIndex;
+        var value = obj.options[idx].value;
+        formName.action = value;
+        // console.log(formName.action);
+      }
+      </script>
+    <% end %>
+
   </head>
 
-  <body>
+  <body style="padding-top: 10px;">
     <!--ヘッダーの記述-->
     <%= render "layouts/header" %>
 
+    <% if notice.present? %>
+      <p id="notice" class="alert alert-success"><%= notice %></p> <!--デバイスでnotice設定されているので呼び出してるだけ-->
+    <% end %>
+
+    <% if alert.present? %>
+      <p id="alert" class="alert alert-warning"><%= alert %></p> <!--デバイスでalert設定されているので呼び出してるだけ-->
+    <% end %>
+
     <div class="container">
-      <p id="notice"><%= notice %></p> <!--デバイスでnotice設定されているので呼び出してるだけ-->
       <%= yield %>
     </div>
 

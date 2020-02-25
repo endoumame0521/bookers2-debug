@@ -36,7 +36,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-  	params.require(:user).permit(:name, :introduction, :profile_image)
+  	params.require(:user).permit(:name, :introduction, :profile_image, :postcode, :prefecture_code, :address_city, :address_street)
   end
 
   def user_search_params

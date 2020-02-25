@@ -20,10 +20,11 @@
       </ul>
       <% if user_signed_in? %>
           <%= form_with(scope: :search, method: :get, local: true, id: "searchForm", class: "navbar-form navbar-left") do |f| %>
-            <%= f.select :target, [["Users", "#{users_path}"], ["Books", "#{books_path}"]], {}, onchange: "targetAction(this);", class: "form-control input-sm" %>
+            <%= f.select :target, [["Users", "#{users_path}"], ["Books", "#{books_path}"]], {}, onchange: "targetAction();", id: "targetSelect", class: "form-control input-sm" %>
             <%= f.select :method, [["前方一致", "forward_match"], ["後方一致", "backward_match"], ["完全一致", "perfect_match"], ["部分一致", "partial_match"]], {}, class: "form-control input-sm" %>
             <%= f.text_field :word, placeholder: "input...", class: "form-control input-sm" %>
             <%= f.submit "Search", class: "btn btn-sm btn-success my-2 my-sm-0" %>
+            <script>targetAction();</script>
           <% end %>
       <% end %>
     </nav>
