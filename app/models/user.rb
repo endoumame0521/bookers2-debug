@@ -39,6 +39,11 @@ class User < ApplicationRecord
   #バリデーションは該当するモデルに設定する。エラーにする条件を設定できる。
   validates :name, length: {maximum: 20, minimum: 2}
   validates :introduction, length: {maximum: 50}
+  validates :postcode, presence: true
+  validates :prefecture_code, presence: true
+  validates :address_city, presence: true
+  validates :address_street, presence: true
+
 
   def self.search(search_params)
     if search_params[:method] == "forward_match"
