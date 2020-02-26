@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class MapsControllerTest < ActionDispatch::IntegrationTest
+class NotificationMailerTest < ActionMailer::TestCase
   # test "the truth" do
   #   assert true
   # end

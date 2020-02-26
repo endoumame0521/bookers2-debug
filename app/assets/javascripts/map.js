@@ -1,16 +1,3 @@
-<% if user == current_user %>
-
-  <h2>Your map</h2>
-  <div id="map"></div>
-
-  <style>
-    #map {
-      height: 500px;
-      width: 500px;
-    }
-  </style>
-
-  <script>
     function initMap(latlng) {
       var map = new google.maps.Map(document.getElementById('map'), {
         center: latlng,
@@ -39,11 +26,3 @@
         }
       });
     }
-  </script>
-
-  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['Gmaps_API_KEY'] %>&callback=getLatLng" async defer></script>
-
-<%=  ENV['MAIL_ADDRESS_G'] %>
-<%=  ENV['PASS_WORD'] %>
-
-<% end %>
