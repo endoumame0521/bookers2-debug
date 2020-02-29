@@ -19,8 +19,8 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
-  has_many :chat_messages #チャットメッセージmodelとのアソシエーション
   has_many :user_chat_rooms
+  has_many :chat_messages #チャットメッセージmodelとのアソシエーション
   has_many :chat_rooms, through: :user_chat_rooms
 
   #ユーザをフォローする

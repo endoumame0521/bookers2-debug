@@ -1,4 +1,4 @@
-<h1 id="room" data-chat_room="<%= @chat_room.id %>" data-user="<%= current_user.id %>"><%= @user.name %> さんとのチャット</h1>
+<h1 id="chat_room" data-chat_room="<%= @chat_room.id %>" data-user="<%= current_user.id %>"><%= @user.name %> さんとのチャット</h1>
 
 <div id='chat_messages'>
   <% @chat_messages.each do |chat_message| %>

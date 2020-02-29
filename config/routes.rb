@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'chat_messages/index'
+  get 'chat_message/:id' => 'chat_messages#show', as: 'chat_message'
   devise_for :users, :controllers => {
     :registrations => 'users/registrations',
   }

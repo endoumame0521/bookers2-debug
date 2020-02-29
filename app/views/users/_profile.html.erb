@@ -27,3 +27,7 @@
 <div class="row" style="margin-top: 10%;">
 	<%= link_to '',edit_user_path(current_user.id), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench edit_user_#{user.id}" %>
 </div>
+
+<% if current_user != user %>
+  <%= link_to 'チャットを始める', chat_message_path(user.id) %>
+<% end %>
