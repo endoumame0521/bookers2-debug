@@ -69,6 +69,8 @@ gem "refile-mini_magick"
 gem 'jquery-rails'
 
 gem 'pry-byebug'
+gem 'better_errors'
+gem 'binding_of_caller'
 
 gem 'bootstrap-sass', '~> 3.3.6'
 
@@ -77,3 +79,7 @@ gem 'jp_prefecture'
 
 #環境変数を扱う
 gem 'dotenv-rails'
+
+group :production do
+  gem 'mysql2'
+end
